@@ -197,7 +197,7 @@
      <string>*</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="btn_negative">
+   <widget class="QPushButton" name="btn_clear">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -207,7 +207,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>+/-</string>
+     <string>C</string>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_zero">
