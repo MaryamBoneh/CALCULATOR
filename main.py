@@ -1,4 +1,3 @@
-# This Python file uses the following encoding: utf-8
 import sys
 import os
 import math
@@ -10,7 +9,6 @@ from PySide2.QtUiTools import QUiLoader
 nums = 0
 temp_num_1 = 0
 opr = ''
-
 
 class main(QMainWindow):
     def __init__(self):
@@ -91,13 +89,6 @@ class main(QMainWindow):
             " background-color: #030825 ; border: 2px solid yellow ; color: yellow ; border-radius: 5px ; font-size : 18px")
 
         #----------------------- END STYLES -------------------------#
-
-    # def sum_two_numbers(self):
-
-    #     a = float(self.ui.tb1.text())
-    #     b = float(self.ui.tb2.text())
-    #     c = a + b
-    #     self.ui.tb3.setText(str(c))
 
     def enter_num_1(self):
         global nums
@@ -267,9 +258,8 @@ class main(QMainWindow):
         opr = ''
         self.ui.textEdit.setText("0")
 
+#------------------- END CLASS MAIM -------------------#
 
-
-arr = []
 if __name__ == "__main__":
     app = QApplication([])
     widget = main()
