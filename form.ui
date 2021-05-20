@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>main</string>
+   <string>Calculator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="btn_one">

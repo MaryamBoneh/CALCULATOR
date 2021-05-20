@@ -13,9 +13,9 @@ opr = ''
 dote = False
 
 
-class main(QMainWindow):
+class Main(QMainWindow):
     def __init__(self):
-        super(main, self).__init__()
+        super(Main, self).__init__()
         loader = QUiLoader()
         self.ui = loader.load('form.ui')
         self.ui.show()
@@ -183,18 +183,14 @@ class main(QMainWindow):
         else:
             self.ui.textEdit.setText('')
         num = ''
-        print('eq opr => ', opr)
 
     def amaliat(self):
         global temp_num
         global num
         global opr
-        print(num, '-------', temp_num)
-        print('ama opr => ', opr)
 
         temp_num = float("{:.2f}".format(float(temp_num)))
         num = float("{:.2f}".format(float(num)))
-        print(num, '-------', temp_num)
         if opr == '*':
             return float("{:.2f}".format(float(temp_num * num)))
         elif opr == '/':
@@ -218,5 +214,5 @@ class main(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication([])
-    widget = main()
+    widget = Main()
     sys.exit(app.exec_())
