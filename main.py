@@ -7,11 +7,6 @@ from PySide2.QtCore import QFile
 from PySide2.QtUiTools import QUiLoader
 from functools import partial
 
-num = ''
-temp_num = ''
-opr = ''
-dote = False
-
 
 class Main(QMainWindow):
     def __init__(self):
@@ -20,6 +15,10 @@ class Main(QMainWindow):
         self.ui = loader.load('form.ui')
         self.ui.show()
         self.ui.textEdit.setText('0')
+        
+        self.num = ''
+        self.temp_num = ''
+        self.opr = ''
 
         self.ui.btn_zero.clicked.connect(partial(self.enter_num, 0))
         self.ui.btn_one.clicked.connect(partial(self.enter_num, 1))
@@ -45,168 +44,139 @@ class Main(QMainWindow):
         self.ui.btn_dote.clicked.connect(self.enter_dote)
 
     def enter_num(self, n):
-        global num
-        global temp_num
-        num = num + str(n)
-        if temp_num:
-            self.ui.textEdit.setText(str(temp_num) + (opr) + str(num))
+        self.num = self.num + str(n)
+        if self.temp_num:
+            self.ui.textEdit.setText(
+                str(self.temp_num) + (self.opr) + str(self.num))
         else:
-            self.ui.textEdit.setText(str(num))
+            self.ui.textEdit.setText(str(self.num))
 
     def enter_mul(self):
-        global temp_num
-        global num
-        global opr
-        if (num or temp_num):
-            if opr:
-                if num:
-                    temp_num = str(self.amaliat())
-                    num = ''
-                    self.ui.textEdit.setText((str(temp_num) + "*"))
+        if (self.num or self.temp_num):
+            if self.opr:
+                if self.num:
+                    self.temp_num = str(self.amaliat())
+                    self.num = ''
+                    self.ui.textEdit.setText((str(self.temp_num) + "*"))
                 else:
-                    self.ui.textEdit.setText((str(temp_num) + "*"))
-
+                    self.ui.textEdit.setText((str(self.temp_num) + "*"))
             else:
-                self.ui.textEdit.setText((str(num) + "*"))
-                temp_num = num
-                num = ''
-            opr = '*'
+                self.ui.textEdit.setText((str(self.num) + "*"))
+                self.temp_num = self.num
+                self.num = ''
+            self.opr = '*'
 
     def enter_divid(self):
-        global temp_num
-        global num
-        global opr
-        if (num or temp_num):
-            if opr:
-                if num:
-                    temp_num = str(self.amaliat())
-                    num = ''
-                    self.ui.textEdit.setText((str(temp_num) + "/"))
+        if (self.num or self.temp_num):
+            if self.opr:
+                if self.num:
+                    self.temp_num = str(self.amaliat())
+                    self.num = ''
+                    self.ui.textEdit.setText((str(self.temp_num) + "/"))
                 else:
-                    self.ui.textEdit.setText((str(temp_num) + "/"))
-
+                    self.ui.textEdit.setText((str(self.temp_num) + "/"))
             else:
-                self.ui.textEdit.setText((str(num) + "/"))
-                temp_num = num
-                num = ''
-            opr = '/'
+                self.ui.textEdit.setText((str(self.num) + "/"))
+                self.temp_num = self.num
+                self.num = ''
+            self.opr = '/'
 
     def enter_sub(self):
-        global temp_num
-        global num
-        global opr
-        if (num or temp_num):
-            if opr:
-                if num:
-                    temp_num = str(self.amaliat())
-                    num = ''
-                    self.ui.textEdit.setText((str(temp_num) + "-"))
+        if (self.num or self.temp_num):
+            if self.opr:
+                if self.num:
+                    self.temp_num = str(self.amaliat())
+                    self.num = ''
+                    self.ui.textEdit.setText((str(self.temp_num) + "-"))
                 else:
-                    self.ui.textEdit.setText((str(temp_num) + "-"))
+                    self.ui.textEdit.setText((str(self.temp_num) + "-"))
 
             else:
-                self.ui.textEdit.setText((str(num) + "-"))
-                temp_num = num
-                num = ''
-            opr = '-'
+                self.ui.textEdit.setText((str(self.num) + "-"))
+                self.temp_num = self.num
+                self.num = ''
+            self.opr = '-'
 
     def enter_plus(self):
-        global temp_num
-        global num
-        global opr
-
-        if (num or temp_num):
-            if opr:
-                if num:
-                    temp_num = str(self.amaliat())
-                    num = ''
-                    self.ui.textEdit.setText((str(temp_num) + "+"))
+        if (self.num or self.temp_num):
+            if self.opr:
+                if self.num:
+                    self.temp_num = str(self.amaliat())
+                    self.num = ''
+                    self.ui.textEdit.setText((str(self.temp_num) + "+"))
                 else:
-                    self.ui.textEdit.setText((str(temp_num) + "+"))
+                    self.ui.textEdit.setText((str(self.temp_num) + "+"))
             else:
-                self.ui.textEdit.setText((str(num) + "+"))
-                temp_num = num
-                num = ''
-            opr = '+'
+                self.ui.textEdit.setText((str(self.num) + "+"))
+                self.temp_num = self.num
+                self.num = ''
+            self.opr = '+'
 
     def enter_tan(self):
-        global num
-        if num:
-            self.ui.textEdit.setText(str(math.tan(float(num))))
-        elif temp_num:
-            self.ui.textEdit.setText(str(math.tan(float(temp_num))))
-        num = ''
+        if self.num:
+            self.ui.textEdit.setText(str(math.tan(float(self.num))))
+        elif self.temp_num:
+            self.ui.textEdit.setText(str(math.tan(float(self.temp_num))))
+        self.num = ''
 
     def enter_cos(self):
-        global num
-        if num:
-            self.ui.textEdit.setText(str(math.cos(float(num))))
-        elif temp_num:
-            self.ui.textEdit.setText(str(math.cos(float(temp_num))))
-        num = ''
+        if self.num:
+            self.ui.textEdit.setText(str(math.cos(float(self.num))))
+        elif self.temp_num:
+            self.ui.textEdit.setText(str(math.cos(float(self.temp_num))))
+        self.num = ''
 
     def enter_sin(self):
-        global num
-        if num:
-            self.ui.textEdit.setText(str(math.sin(float(num))))
-        elif temp_num:
-            self.ui.textEdit.setText(str(math.sin(float(temp_num))))
-        num = ''
+        if self.num:
+            self.ui.textEdit.setText(str(math.sin(float(self.num))))
+        elif self.temp_num:
+            self.ui.textEdit.setText(str(math.sin(float(self.temp_num))))
+        self.num = ''
 
     def enter_dote(self):
-        global num
-        if (num.count('.') == 0):
-            num = num + '.'
-            if temp_num:
-                self.ui.textEdit.setText(str(temp_num) + (opr) + str(num))
+        if (self.num.count('.') == 0):
+            self.num = self.num + '.'
+            if self.temp_num:
+                self.ui.textEdit.setText(
+                    str(self.temp_num) + (self.opr) + str(self.num))
             else:
-                self.ui.textEdit.setText(str(num))
+                self.ui.textEdit.setText(str(self.num))
 
     def enter_equal(self):
-        global temp_num
-        global num
-        global opr
-        temp_num = float("{:.2f}".format(float(temp_num)))
-        num = float("{:.2f}".format(float(num)))
-        if opr == '*':
-            self.ui.textEdit.setText(str(temp_num * num))
-            temp_num = num * temp_num
-        elif opr == '/':
-            self.ui.textEdit.setText(str(temp_num / num))
-            temp_num = num / temp_num
-        elif opr == '-':
-            self.ui.textEdit.setText(str(temp_num - num))
-            temp_num = num - temp_num
-        elif opr == '+':
-            self.ui.textEdit.setText(str(temp_num + num))
-            temp_num = num + temp_num
+        self.temp_num = float("{:.2f}".format(float(self.temp_num)))
+        self.num = float("{:.2f}".format(float(self.num)))
+        if self.opr == '*':
+            self.ui.textEdit.setText(str(self.temp_num * self.num))
+            self.temp_num = self.num * self.temp_num
+        elif self.opr == '/':
+            self.ui.textEdit.setText(str(self.temp_num / self.num))
+            self.temp_num = self.num / self.temp_num
+        elif self.opr == '-':
+            self.ui.textEdit.setText(str(self.temp_num - self.num))
+            self.temp_num = self.num - self.temp_num
+        elif self.opr == '+':
+            self.ui.textEdit.setText(str(self.temp_num + self.num))
+            self.temp_num = self.num + self.temp_num
         else:
             self.ui.textEdit.setText('')
-        num = ''
+        self.num = ''
 
     def amaliat(self):
-        global temp_num
-        global num
-        global opr
-
-        temp_num = float("{:.2f}".format(float(temp_num)))
-        num = float("{:.2f}".format(float(num)))
-        if opr == '*':
-            return float("{:.2f}".format(float(temp_num * num)))
-        elif opr == '/':
-            return float("{:.2f}".format(float(temp_num / num)))
-        elif opr == '-':
-            return float("{:.2f}".format(float(temp_num - num)))
+        self.temp_num = float("{:.2f}".format(float(self.temp_num)))
+        self.num = float("{:.2f}".format(float(self.num)))
+        if self.opr == '*':
+            return float("{:.2f}".format(float(self.temp_num * self.num)))
+        elif self.opr == '/':
+            return float("{:.2f}".format(float(self.temp_num / self.num)))
+        elif self.opr == '-':
+            return float("{:.2f}".format(float(self.temp_num - self.num)))
         else:
-            return float("{:.2f}".format(float(temp_num + num)))
+            return float("{:.2f}".format(float(self.temp_num + self.num)))
 
     def enter_clear(self):
-        global temp_num
-        global num
-        global opr
-        num = ''
-        temp_num = ''
-        opr = ''
+        self.num = ''
+        self.temp_num = ''
+        self.opr = ''
         self.ui.textEdit.setText("0")
 
 #------------------- END CLASS MAIM -------------------#
